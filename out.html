@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Work Repository</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+<style>
+body {
+  font-family: 'sans-serif';
+}
+
+.articles {
+  max-width: 500px;
+}
+
+.article > h2 {
+  font-size: 1.2rem;
+}
+
+.author, .tag, .status, .funding-agency, .number {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.article {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+
+</style>
+</head>
+
+<body>
+<input type="text" id="filterInput" name="filterInput" placeholder="type to filter">
+<div class="articles">
+    <article class="article">
+    <h2>My Example Paper Which is better and not a talk</h2>
+    <p class="authors"><span class="author">Piggy Mc. Pigger</span> <span class="author">Sessame, Kermit</span></p>
+    <p>
+      <span class="tags">tags: <span class="tag">paper</span></span>
+      <span>status: <span class="status"></span></span>
+    </p>
+    <p>
+    <span>DOI: <span class="doi">10.1000/xyz123</span></span>
+    <span>preprint: <span class="preprint">https://arxiv.org/abs/...</span></span>
+    <span><span class="jornal"></span></span>
+    <span><span class="conference"></span></span>
+    </p>
+    <p class="funding-entities"><p><span class="funding-agency">Agency A</span> <span class="all-numbers"><span class="number">grant B</span></span><p></p>
+    <p class="notes">
+
+This is some notes in markdown format that are just generic and whatever.
+</p>
+    </article>
+    
+
+    <article class="article">
+    <h2>My Example Paper</h2>
+    <p class="authors"><span class="author">Piggy Mc. Pigger</span> <span class="author">Sessame, Kermit</span> <span class="author">Стефан Кръстанов</span></p>
+    <p>
+      <span class="tags">tags: <span class="tag">paper</span>
+<span class="tag">whitepaper</span>
+<span class="tag">talk</span>
+<span class="tag">proposal</span></span>
+      <span>status: <span class="status"></span></span>
+    </p>
+    <p>
+    <span>DOI: <span class="doi">10.1000/xyz123</span></span>
+    <span>preprint: <span class="preprint">https://arxiv.org/abs/...</span></span>
+    <span><span class="jornal"></span></span>
+    <span><span class="conference"></span></span>
+    </p>
+    <p class="funding-entities"><p><span class="funding-agency">Agency A</span> <span class="all-numbers"><span class="number">grant B</span> <span class="number">grant B.1</span></span><p>
+<p><span class="funding-agency">Agency C</span> <span class="all-numbers"><span class="number">grant D</span></span><p></p>
+    <p class="notes">
+
+This is some notes in markdown format that are just generic and whatever.
+</p>
+    </article>
+    </div>
+<script>
+const filterInput = document.getElementById('filterInput');
+
+function filterRun(ev) {
+  const filterString = filterInput.value.toUpperCase();
+  const allArticles = document.getElementsByClassName('article');
+  for (const article of allArticles) {
+    const text = article.innerHTML;
+    if (text.toUpperCase().indexOf(filterString) > -1) {
+      article.style.display = 'block';
+    } else {
+      article.style.display = 'none';
+    }
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", function(){
+  filterInput.addEventListener('input', filterRun);
+
+  // Be sure these have proper cursor css style.
+  const filterables = document.querySelectorAll('.author, .tag, .status, .funding-agency, .number');
+  for (const f of filterables) {
+    f.addEventListener('click', function (ev) {
+      filterInput.value = ev.target.innerText;
+      filterRun();
+    });
+  }
+});
+
+</script>
+</body>
+</html>

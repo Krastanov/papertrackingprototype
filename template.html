@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Work Repository</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+<style>
+body {
+  font-family: 'sans-serif';
+}
+
+.articles {
+  max-width: 500px;
+}
+
+.article > h2 {
+  font-size: 1.2rem;
+}
+
+.author, .tag, .status, .funding-agency, .number {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.article {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+
+</style>
+</head>
+
+<body>
+<input type="text" id="filterInput" name="filterInput" placeholder="type to filter">
+{body}
+<script>
+const filterInput = document.getElementById('filterInput');
+
+function filterRun(ev) {
+  const filterString = filterInput.value.toUpperCase();
+  const allArticles = document.getElementsByClassName('article');
+  for (const article of allArticles) {
+    const text = article.innerHTML;
+    if (text.toUpperCase().indexOf(filterString) > -1) {
+      article.style.display = 'block';
+    } else {
+      article.style.display = 'none';
+    }
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", function(){
+  filterInput.addEventListener('input', filterRun);
+
+  // Be sure these have proper cursor css style.
+  const filterables = document.querySelectorAll('.author, .tag, .status, .funding-agency, .number');
+  for (const f of filterables) {
+    f.addEventListener('click', function (ev) {
+      filterInput.value = ev.target.innerText;
+      filterRun();
+    });
+  }
+});
+
+</script>
+</body>
+</html>
